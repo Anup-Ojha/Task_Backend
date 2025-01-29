@@ -1,59 +1,116 @@
 package com.godigital.task.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class EmployeeAssets {
 	
 	@Id
-	private Integer employeeId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	private Integer assetsIndex;
 	
-	@Override
-	public String toString() {
-		return "EmployeeAssets [employeeId=" + employeeId + ", assetName=" + assetName + ", assetType=" + assetType
-				+ "]";
-	}
+
+	private String assetName;
+	
+	private String assetType;
+	
+	@ManyToOne
+	@JsonBackReference
+	private Employee employee;
+	
+	
+	
 
 	public EmployeeAssets() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeAssets(Integer employeeId, String assetName, String assetType) {
-		super();
-		this.employeeId = employeeId;
-		this.assetName = assetName;
-		this.assetType = assetType;
+
+
+
+	public Integer getAssetsIndex() {
+		return assetsIndex;
 	}
 
-	public Integer getEmployeeId() {
-		return employeeId;
+
+
+
+	public void setAssetsIndex(Integer assetsIndex) {
+		this.assetsIndex = assetsIndex;
 	}
 
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
-	}
+
+
 
 	public String getAssetName() {
 		return assetName;
 	}
 
+
+
+
 	public void setAssetName(String assetName) {
 		this.assetName = assetName;
 	}
+
+
+
 
 	public String getAssetType() {
 		return assetType;
 	}
 
+
+
+
 	public void setAssetType(String assetType) {
 		this.assetType = assetType;
 	}
 
-	private String assetName;
+
+
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+
+
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+
+
+
+	public EmployeeAssets(Integer assetsIndex, String assetName, String assetType, Employee employee) {
+		super();
+		this.assetsIndex = assetsIndex;
+		this.assetName = assetName;
+		this.assetType = assetType;
+		this.employee = employee;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "EmployeeAssets [assetsIndex=" + assetsIndex + ", assetName=" + assetName + ", assetType=" + assetType
+				+ ", employee=" + employee + "]";
+	}
+
 	
-	private String assetType;
-	
+
 	
 }

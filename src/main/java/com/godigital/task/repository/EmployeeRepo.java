@@ -8,6 +8,6 @@ import com.godigital.task.entities.Employee;
 @Repository
 public interface EmployeeRepo extends CrudRepository<Employee, Integer>{
 	
-	public Employee findByUserName(String username);
+	public Employee findByUsername(String username);
 	
 }

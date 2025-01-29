@@ -1,44 +1,23 @@
-//package com.godigital.task.controllers;
-//
-//import java.util.List;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.godigital.task.entities.Leave;
-//import com.godigital.task.repository.LeaveRepo;
-//
-//@RestController
-//public class LeaveController {
-//
+package com.godigital.task.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.godigital.task.entities.Leaves;
+import com.godigital.task.service.LeaveService;
+
+@RestController
+public class LeaveController {
+	
 //	@Autowired
-//	private LeaveRepo leaveRepo;
-//	
-//	@GetMapping("/leave/details")
-//	public List<Leave> getAllLeaveds(){
-//		return (List<Leave>)leaveRepo.findAll();
+//	private LeaveService leaveService;
+//
+//	@GetMapping("/employee/leaves/{employee_id}")
+//	public List<Leaves> findByEmployeeId(@PathVariable Integer id){
+//		return 
 //	}
-//	
-//	@PostMapping("/leave/add")
-//	public Leave addANewLeave(@RequestBody Leave leaveData) {
-//		return leaveRepo.save(leaveData);
-//	}
-//	
-//	@DeleteMapping("/leave/delete/{id}")
-//	public String deleteLeaveRequest(@PathVariable Integer id) {
-//		leaveRepo.deleteById(id);
-//		return "Leave Request deleted of Id "+id+" ";
-//	}
-//	
-//	@GetMapping("/leave/{id}")
-//	public List<Leave> findAllByleaveId(@PathVariable Integer id){
-//		return (List<Leave>) leaveRepo.findAllByleaveId(id);
-//	}
-//	
-//	
-//}
+}

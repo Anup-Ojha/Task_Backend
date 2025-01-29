@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.godigital.task.entities.AccountDetail;
 import com.godigital.task.entities.AccountDetail;
 import com.godigital.task.entities.Employee;
+import com.godigital.task.model.User;
 import com.godigital.task.repository.BankRepo;
 import com.godigital.task.repository.BankRepo;
 import com.godigital.task.repository.EmployeeRepo;
@@ -32,7 +33,7 @@ public class EmployeeControllers {
 	@Autowired
 	private BankRepo bankRepo;
 	
-	@PostMapping("/employee/add")
+	@PostMapping("/register")
 	public Employee setEmployee(@RequestBody Employee Emp) {
 		return empService.registerEmployee(Emp);
 	}
@@ -46,5 +47,15 @@ public class EmployeeControllers {
 	public Optional<Employee> getEmployeeById(@PathVariable Integer id) {
 		return empService.getEmployeeById(id);
 	}
+	
+	@PostMapping("/login")
+	public String login(@RequestBody Employee user) {
+		System.out.println(user.getUsername());
+		System.out.println(user.getPassword());
+		System.out.println(empService.verify(user));
+		
+		return empService.verify(user);
+	}
+	
 
 }

@@ -7,5 +7,4 @@ import com.godigital.task.entities.AccountDetail;
 @Repository
 public interface BankRepo extends CrudRepository<AccountDetail, String>{
 	
-
 }

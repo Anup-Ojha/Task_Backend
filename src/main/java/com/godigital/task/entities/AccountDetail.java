@@ -1,22 +1,19 @@
 package com.godigital.task.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-
 
 @Entity
 public class AccountDetail {
 	
 	@Id
-	@Column(length=50)
+	@Column(length=50,unique=true)
 	private String accountNumber;
 	
 	@Column(length=50)
@@ -28,14 +25,29 @@ public class AccountDetail {
 	@Column(length=50)
 	private String accountName;
 	
-
-	public AccountDetail(String accountNumber, String bankName, String ifciCode, String branch, String accountName) {
+	@ManyToOne
+	@JsonBackReference
+	private Employee employee;
+	
+	public AccountDetail(String accountNumber, String bankName, String ifciCode, String branch, String accountName,
+			Employee employee) {
 		super();
 		this.accountNumber = accountNumber;
 		this.bankName = bankName;
 		this.ifciCode = ifciCode;
 		this.branch = branch;
 		this.accountName = accountName;
+		this.employee = employee;
+	}
+
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 

@@ -3,6 +3,8 @@ package com.godigital.task.entities;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,94 +21,62 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Employee {
    
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private Integer employee_id;
- 
-
-
-
-//	public Leave getLeaves() {
-//		return leaves;
-//	}
-//
-//
-//	public void setLeaves(Leave leaves) {
-//		this.leaves = leaves;
-//	}
-
-
-	public Employee(Integer employee_id, String firstName, String lastName, String userName, String password,
-			Date hireDate, boolean probation, Double salary, Date birthDate, Integer managerId) {
-		super();
-		this.employee_id = employee_id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.password = password;
-		this.hireDate = hireDate;
-		this.probation = probation;
-		this.salary = salary;
-		this.birthDate = birthDate;
-		this.managerId = managerId;
-	}
-
 
 	@Column(length = 50)
     private String firstName;
  
     @Column(length = 50)
     private String lastName;
-    private String userName;
+    
+    @Column(name="dateOfBirth")
+    private Date dateOfBirth;
+    
+    @Column(name="hireDate")
+    private Date hireDate;
+    
+    @Column(name="managerId")
+    private String managerId;
+    
+    @Column(name="salary")
+    private Double salary;
+    
+    @Column(unique=true)
+    private String username;
     private String password;
-    public Integer getEmployee_id() {
+    
+    @OneToMany(mappedBy="employee",cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<AccountDetail> accountDetails;
+    
+    @OneToMany(mappedBy="employee",cascade= CascadeType.ALL)
+    @JsonManagedReference
+    private List<Department> departmentDetails;
+    
+    @OneToMany(mappedBy="employee",cascade= CascadeType.ALL)
+    @JsonManagedReference
+    private List<Leaves> leavesDetails;
+
+    @OneToMany(mappedBy="employee",cascade= CascadeType.ALL)
+    @JsonManagedReference
+    private List<EmployeeAssets> assetsDetails;
+    
+	
+	public Employee() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Integer getEmployee_id() {
 		return employee_id;
 	}
+
 
 	public void setEmployee_id(Integer employee_id) {
 		this.employee_id = employee_id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	private Date hireDate;
-    private boolean probation;
-    private Double salary;
-  
-    private Date birthDate;
- 
-    private Integer managerId;
- 
-//    
-//    @ManyToOne
-//    @JoinColumn(name="employee")
-//    private AccountDetail accountDetails;
-//    
-//    @ManyToOne
-//    @JoinColumn(name="")
-//    private Leave leaves;
-
-	public Integer getEmployeeId() {
-		return employee_id;
-	}
-
-	public void setEmployeeId(Integer employeeId) {
-		this.employee_id = employeeId;
 	}
 
 
@@ -130,6 +100,16 @@ public class Employee {
 	}
 
 
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+
 	public Date getHireDate() {
 		return hireDate;
 	}
@@ -140,13 +120,13 @@ public class Employee {
 	}
 
 
-	public Boolean getProbation() {
-		return probation;
+	public String getManagerId() {
+		return managerId;
 	}
 
 
-	public void setProbation(boolean probation) {
-		this.probation = probation;
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 
 
@@ -160,44 +140,95 @@ public class Employee {
 	}
 
 
-	public Date getBirthDate() {
-		return birthDate;
+	public String getUsername() {
+		return username;
 	}
 
 
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 
-	public Integer getManagerId() {
-		return managerId;
+	public String getPassword() {
+		return password;
 	}
 
 
-	public void setManagerId(Integer managerId) {
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public List<AccountDetail> getAccountDetails() {
+		return accountDetails;
+	}
+
+
+	public void setAccountDetails(List<AccountDetail> accountDetails) {
+		this.accountDetails = accountDetails;
+	}
+
+
+	public List<Department> getDepartmentDetails() {
+		return departmentDetails;
+	}
+
+
+	public void setDepartmentDetails(List<Department> departmentDetails) {
+		this.departmentDetails = departmentDetails;
+	}
+
+
+	public List<Leaves> getLeavesDetails() {
+		return leavesDetails;
+	}
+
+
+	public void setLeavesDetails(List<Leaves> leavesDetails) {
+		this.leavesDetails = leavesDetails;
+	}
+
+
+	public List<EmployeeAssets> getAssetsDetails() {
+		return assetsDetails;
+	}
+
+
+	public void setAssetsDetails(List<EmployeeAssets> assetsDetails) {
+		this.assetsDetails = assetsDetails;
+	}
+
+
+	public Employee(Integer employee_id, String firstName, String lastName, Date dateOfBirth, Date hireDate,
+			String managerId, Double salary, String username, String password, List<AccountDetail> accountDetails,
+			List<Department> departmentDetails, List<Leaves> leavesDetails, List<EmployeeAssets> assetsDetails) {
+		super();
+		this.employee_id = employee_id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.hireDate = hireDate;
 		this.managerId = managerId;
+		this.salary = salary;
+		this.username = username;
+		this.password = password;
+		this.accountDetails = accountDetails;
+		this.departmentDetails = departmentDetails;
+		this.leavesDetails = leavesDetails;
+		this.assetsDetails = assetsDetails;
 	}
-
-
 
 
 	@Override
 	public String toString() {
 		return "Employee [employee_id=" + employee_id + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", userName=" + userName + ", password=" + password + ", hireDate=" + hireDate + ", probation="
-				+ probation + ", salary=" + salary + ", birthDate=" + birthDate + ", managerId=" + managerId + "]";
+				+ ", dateOfBirth=" + dateOfBirth + ", hireDate=" + hireDate + ", managerId=" + managerId + ", salary="
+				+ salary + ", username=" + username + ", password=" + password + ", accountDetails=" + accountDetails
+				+ ", departmentDetails=" + departmentDetails + ", leavesDetails=" + leavesDetails + ", assetsDetails="
+				+ assetsDetails + "]";
 	}
 
 
-	public Employee() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	
-	
-
- 
 
 }
