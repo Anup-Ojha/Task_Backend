@@ -8,12 +8,17 @@ import org.springframework.security.authentication.AccountStatusUserDetailsCheck
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.godigital.task.JWT.JWTService;
 import com.godigital.task.entities.AccountDetail;
 import com.godigital.task.entities.Employee;
+import com.godigital.task.model.EmpById;
+import com.godigital.task.model.EmployeeLoginDto;
+import com.godigital.task.model.LoginResponse;
+import com.godigital.task.model.TokenAndId;
 import com.godigital.task.repository.BankRepo;
 import com.godigital.task.repository.EmployeeRepo;
 
@@ -28,11 +33,7 @@ public class EmployeeService {
 	
 	@Autowired
 	private AuthenticationManager authManager; 
-	
-	@Autowired
-	private BankRepo bankRepo;
-	
-	
+
 	
 	@Autowired
 	public BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
@@ -45,28 +46,33 @@ public class EmployeeService {
 		return empRepo.save(emp);
 	}
 
-	private String encode(String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<Employee> getAllEmployeeList() {
 		return (List<Employee>) empRepo.findAll();
 	}
 
-	public Optional<Employee> getEmployeeById(Integer id) {
-		
-		return empRepo.findById(id);
+	public Employee getEmployeeById(Integer id) {
+		return empRepo.findByEmployeeId(id);
 	}
+	
+	public void deleteEmployeeById(Integer employeeId) {
+	    empRepo.deleteById(employeeId);
+	}
+	
 
-	public String verify(Employee emp) {
-		Authentication authorization=authManager.authenticate(new UsernamePasswordAuthenticationToken(emp.getUsername(), emp.getPassword()));	
-		System.out.println(authorization);
-		if(authorization.isAuthenticated()) {
-			return jwtService.generateToken(emp.getUsername());
-		}
-		else {
-			return "Fail";
-		}
-	}
+	public LoginResponse verify(EmployeeLoginDto emp) { 
+        Authentication authentication = authManager.authenticate(
+                new UsernamePasswordAuthenticationToken(emp.getUsername(), emp.getPassword())
+        );
+
+        if (authentication.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            Employee employee = empRepo.findByUsername(emp.getUsername()); 
+            String token = jwtService.generateToken(emp.getUsername());
+
+            return new LoginResponse(token, employee); 
+        } else {
+            return null;
+        }
+    }
 }
+

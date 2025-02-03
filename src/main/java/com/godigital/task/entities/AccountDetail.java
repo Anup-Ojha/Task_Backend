@@ -28,7 +28,12 @@ public class AccountDetail {
 	@ManyToOne
 	@JsonBackReference
 	private Employee employee;
-	
+
+	public AccountDetail() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public AccountDetail(String accountNumber, String bankName, String ifciCode, String branch, String accountName,
 			Employee employee) {
 		super();
@@ -40,71 +45,60 @@ public class AccountDetail {
 		this.employee = employee;
 	}
 
-
-	public Employee getEmployee() {
-		return employee;
+	@Override
+	public String toString() {
+		return "AccountDetail [accountNumber=" + accountNumber + ", bankName=" + bankName + ", ifciCode=" + ifciCode
+				+ ", branch=" + branch + ", accountName=" + accountName + ", employee=" + employee + "]";
 	}
-
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
 
 	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-
 	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
-
 
 	public String getBankName() {
 		return bankName;
 	}
 
-
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
 	}
-
 
 	public String getIfciCode() {
 		return ifciCode;
 	}
 
-
 	public void setIfciCode(String ifciCode) {
 		this.ifciCode = ifciCode;
 	}
-
 
 	public String getBranch() {
 		return branch;
 	}
 
-
 	public void setBranch(String branch) {
 		this.branch = branch;
 	}
-
 
 	public String getAccountName() {
 		return accountName;
 	}
 
-
 	public void setAccountName(String accountName) {
 		this.accountName = accountName;
 	}
 
+	public Employee getEmployee() {
+		return employee;
+	}
 
-	public AccountDetail() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 
+	
 }

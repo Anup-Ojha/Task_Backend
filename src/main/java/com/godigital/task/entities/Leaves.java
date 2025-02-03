@@ -1,6 +1,7 @@
 package com.godigital.task.entities;
 
 import java.sql.Date;
+import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -30,6 +31,17 @@ public class Leaves{
 	@JsonBackReference
 	private Employee employee;
 
+	@Override
+	public String toString() {
+		return "Leaves [id=" + id + ", leaveType=" + leaveType + ", tillDate=" + tillDate + ", fromDate=" + fromDate
+				+ ", note=" + note + ", status=" + status + ", employee=" + employee + "]";
+	}
+
+	public Leaves() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Leaves(int id, String leaveType, Date tillDate, Date fromDate, String note, String status,
 			Employee employee) {
 		super();
@@ -40,16 +52,6 @@ public class Leaves{
 		this.note = note;
 		this.status = status;
 		this.employee = employee;
-	}
-
-	public Leaves() {
-		super();
-	}
-
-	@Override
-	public String toString() {
-		return "Leaves [id=" + id + ", leaveType=" + leaveType + ", tillDate=" + tillDate + ", fromDate=" + fromDate
-				+ ", note=" + note + ", status=" + status + ", employee=" + employee + "]";
 	}
 
 	public int getId() {
@@ -107,6 +109,6 @@ public class Leaves{
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
+	
 	
 }

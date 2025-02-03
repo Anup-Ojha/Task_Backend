@@ -25,73 +25,44 @@ public class EmployeeAssets {
 	@ManyToOne
 	@JsonBackReference
 	private Employee employee;
-	
-	
-	
-
-	public EmployeeAssets() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-
-
 
 	public Integer getAssetsIndex() {
 		return assetsIndex;
 	}
 
-
-
-
 	public void setAssetsIndex(Integer assetsIndex) {
 		this.assetsIndex = assetsIndex;
 	}
-
-
-
 
 	public String getAssetName() {
 		return assetName;
 	}
 
-
-
-
 	public void setAssetName(String assetName) {
 		this.assetName = assetName;
 	}
-
-
-
 
 	public String getAssetType() {
 		return assetType;
 	}
 
-
-
-
 	public void setAssetType(String assetType) {
 		this.assetType = assetType;
 	}
-
-
-
 
 	public Employee getEmployee() {
 		return employee;
 	}
 
-
-
-
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "EmployeeAssets [assetsIndex=" + assetsIndex + ", assetName=" + assetName + ", assetType=" + assetType
+				+ ", employee=" + employee + "]";
+	}
 
 	public EmployeeAssets(Integer assetsIndex, String assetName, String assetType, Employee employee) {
 		super();
@@ -101,16 +72,10 @@ public class EmployeeAssets {
 		this.employee = employee;
 	}
 
-
-
-
-	@Override
-	public String toString() {
-		return "EmployeeAssets [assetsIndex=" + assetsIndex + ", assetName=" + assetName + ", assetType=" + assetType
-				+ ", employee=" + employee + "]";
+	public EmployeeAssets() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-
 	
-
 	
 }

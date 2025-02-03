@@ -10,4 +10,11 @@ public interface EmployeeRepo extends CrudRepository<Employee, Integer>{
 	
 	public Employee findByUsername(String username);
 	
+	public Employee findByEmployeeId(Integer employeeId);
+	
+	
+	
+	
+
+
 }

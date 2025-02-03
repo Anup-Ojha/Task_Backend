@@ -17,13 +17,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "employeeId")
 
 @Entity
 public class Employee {
    
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer employee_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer employeeId;
 
 	@Column(length = 50)
     private String firstName;
@@ -70,13 +71,13 @@ public class Employee {
 	}
 
 
-	public Integer getEmployee_id() {
-		return employee_id;
+	public Integer getEmployeeId() {
+		return employeeId;
 	}
 
 
-	public void setEmployee_id(Integer employee_id) {
-		this.employee_id = employee_id;
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 
 
@@ -200,11 +201,21 @@ public class Employee {
 	}
 
 
-	public Employee(Integer employee_id, String firstName, String lastName, Date dateOfBirth, Date hireDate,
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", dateOfBirth=" + dateOfBirth + ", hireDate=" + hireDate + ", managerId=" + managerId + ", salary="
+				+ salary + ", username=" + username + ", password=" + password + ", accountDetails=" + accountDetails
+				+ ", departmentDetails=" + departmentDetails + ", leavesDetails=" + leavesDetails + ", assetsDetails="
+				+ assetsDetails + "]";
+	}
+
+
+	public Employee(Integer employeeId, String firstName, String lastName, Date dateOfBirth, Date hireDate,
 			String managerId, Double salary, String username, String password, List<AccountDetail> accountDetails,
 			List<Department> departmentDetails, List<Leaves> leavesDetails, List<EmployeeAssets> assetsDetails) {
 		super();
-		this.employee_id = employee_id;
+		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dateOfBirth = dateOfBirth;
@@ -218,17 +229,6 @@ public class Employee {
 		this.leavesDetails = leavesDetails;
 		this.assetsDetails = assetsDetails;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Employee [employee_id=" + employee_id + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", dateOfBirth=" + dateOfBirth + ", hireDate=" + hireDate + ", managerId=" + managerId + ", salary="
-				+ salary + ", username=" + username + ", password=" + password + ", accountDetails=" + accountDetails
-				+ ", departmentDetails=" + departmentDetails + ", leavesDetails=" + leavesDetails + ", assetsDetails="
-				+ assetsDetails + "]";
-	}
-
 
 
 }
