@@ -1,6 +1,8 @@
 package com.godigital.task.controllers;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +45,8 @@ public class LeaveController {
         Employee employee = employeeRepository.findById(leaveRequest.getEmployee().getEmployeeId())
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
 
-        // Set the Employee reference
         leaveRequest.setEmployee(employee);
 
-        // Save Leave
         leavesService.saveLeave(leaveRequest);
     }
     
@@ -54,4 +54,21 @@ public class LeaveController {
     public List<Leaves> getAllLeaves(@PathVariable Integer id){
     	return leavesService.getAllLeavesById(id);
     }
+    
+    @GetMapping("/count/{id}")
+    public List<Map<String,Integer>> getAllLeavesTypeCount(@PathVariable Integer id){
+    	return leavesService.getAllLeavesTypeCount(id);
+    }
+    
+    
+    @GetMapping("/weeks/{id}")
+    public List<Map<String,Integer>> getAllWeeksCount(@PathVariable Integer id){
+    	return leavesService.getAllWeeksCount(id);
+    }
+    
+    @GetMapping("/filterDateData/{startDate}/{endDate}/{id}")
+    public List<Map<String,Integer>> getEholeYearData(@PathVariable Date startDate,@PathVariable Date endDate,@PathVariable Integer id){
+    	return leavesService.getWholeYearFilterData(id,startDate,endDate);
+    }
+    
 }

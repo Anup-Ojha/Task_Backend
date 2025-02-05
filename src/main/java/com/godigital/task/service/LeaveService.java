@@ -1,6 +1,8 @@
 package com.godigital.task.service;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,18 @@ public class LeaveService {
     
     public List<Leaves> getAllLeavesById(Integer Id){
     	return leaveRepository.findByEmployeeEmployeeId(Id);
+    }
+    
+    public List<Map<String,Integer>> getAllLeavesTypeCount(Integer empId){
+    	return leaveRepository.countLeavesType(empId);
+    }
+    
+    public List<Map<String,Integer>> getAllWeeksCount(Integer empId){
+    	return leaveRepository.weeksCount(empId);
+    }
+    
+    public List<Map<String,Integer>> getWholeYearFilterData(Integer empId,Date startDate,Date endDate){
+    	return leaveRepository.filterWholeYearData(empId,startDate,endDate);
     }
 }
 
