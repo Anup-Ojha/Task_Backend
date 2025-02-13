@@ -45,9 +45,9 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(customizer -> customizer.disable())
 		 .cors(Customizer.withDefaults())
-		.authorizeHttpRequests(request -> request.requestMatchers("login","register","access").permitAll().anyRequest().authenticated())
+		.authorizeHttpRequests(request -> request.requestMatchers("login","register").permitAll().anyRequest().authenticated())
 //		.formLogin(Customizer.withDefaults())
-		.httpBasic(Customizer.withDefaults())
+		.httpBasic(Customizer.withDefaults()) 
 		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();

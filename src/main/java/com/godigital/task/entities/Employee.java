@@ -3,6 +3,8 @@ package com.godigital.task.entities;
 import java.sql.Date;
 import java.util.List;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -47,6 +49,7 @@ public class Employee {
     @Column(unique=true)
     private String username;
     private String password;
+    
     
     @OneToMany(mappedBy="employee",cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -201,19 +204,10 @@ public class Employee {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", dateOfBirth=" + dateOfBirth + ", hireDate=" + hireDate + ", managerId=" + managerId + ", salary="
-				+ salary + ", username=" + username + ", password=" + password + ", accountDetails=" + accountDetails
-				+ ", departmentDetails=" + departmentDetails + ", leavesDetails=" + leavesDetails + ", assetsDetails="
-				+ assetsDetails + "]";
-	}
-
-
 	public Employee(Integer employeeId, String firstName, String lastName, Date dateOfBirth, Date hireDate,
-			String managerId, Double salary, String username, String password, List<AccountDetail> accountDetails,
-			List<Department> departmentDetails, List<Leaves> leavesDetails, List<EmployeeAssets> assetsDetails) {
+			String managerId, Double salary, String username, String password,
+			List<AccountDetail> accountDetails, List<Department> departmentDetails, List<Leaves> leavesDetails,
+			List<EmployeeAssets> assetsDetails) {
 		super();
 		this.employeeId = employeeId;
 		this.firstName = firstName;
@@ -224,11 +218,26 @@ public class Employee {
 		this.salary = salary;
 		this.username = username;
 		this.password = password;
+
 		this.accountDetails = accountDetails;
 		this.departmentDetails = departmentDetails;
 		this.leavesDetails = leavesDetails;
 		this.assetsDetails = assetsDetails;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", dateOfBirth=" + dateOfBirth + ", hireDate=" + hireDate + ", managerId=" + managerId + ", salary="
+				+ salary + ", username=" + username + ", password=" + password + ", accountDetails=" + accountDetails + ", departmentDetails=" + departmentDetails + ", leavesDetails="
+				+ leavesDetails + ", assetsDetails=" + assetsDetails + "]";
+	}
+
+
+
+
+
 
 
 }

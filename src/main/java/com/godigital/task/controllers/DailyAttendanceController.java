@@ -41,7 +41,7 @@ public class DailyAttendanceController {
     	return attendanceService.getAllAttendaceByEmployeeId(employeeId);
     }
 	
-	@GetMapping("/at/{employeeId}")
+	@GetMapping("/attendance/calendar/{employeeId}")
     public List<Object> getAllByTimeStampAndDate(@PathVariable Integer employeeId){
     	return attendanceService.getAllCalanderData(employeeId);
     }

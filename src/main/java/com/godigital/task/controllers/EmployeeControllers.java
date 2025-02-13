@@ -25,7 +25,7 @@ public class EmployeeControllers {
 	@Autowired
 	private EmployeeService empService; 
 	
-	@GetMapping("/employee/details")
+	@GetMapping("/employees")
 	public List<Employee> getAllEmployee(){
 		return (List<Employee>) empService.getAllEmployeeList();
 	}
@@ -35,8 +35,6 @@ public class EmployeeControllers {
 		return empService.getEmployeeById(id);
 	}
 
-
-	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id) {
 	    try {

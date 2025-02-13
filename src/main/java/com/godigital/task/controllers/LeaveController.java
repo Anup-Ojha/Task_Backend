@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +36,8 @@ public class LeaveController {
 
     @Autowired
     private EmployeeRepo employeeRepository;
+    
+
 
     @PostMapping("/add")
     public void addLeave(@RequestBody Leaves leaveRequest) {
@@ -67,8 +71,18 @@ public class LeaveController {
     }
     
     @GetMapping("/filterDateData/{startDate}/{endDate}/{id}")
-    public List<Map<String,Integer>> getEholeYearData(@PathVariable Date startDate,@PathVariable Date endDate,@PathVariable Integer id){
+    public List<Map<String,Integer>> getWholeYearData(@PathVariable Date startDate,@PathVariable Date endDate,@PathVariable Integer id){
     	return leavesService.getWholeYearFilterData(id,startDate,endDate);
+    }
+    
+    @DeleteMapping("/employee/delete/{id}")
+    public void deleteEmployeeLeave(@PathVariable Integer id){
+    	leavesService.deleteEmployeeLeave(id);    	
+    }
+    
+    @PutMapping("/employee/update/{id}")
+    public ResponseEntity<Leaves> updateEmployeeLeavesDetails(@PathVariable("id") Integer id,@RequestBody Leaves updateRequest){
+    	return leavesService.updateLeavesDetails(id,updateRequest);
     }
     
    
